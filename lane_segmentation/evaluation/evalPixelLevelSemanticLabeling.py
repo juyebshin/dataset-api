@@ -28,6 +28,10 @@ import os
 import sys
 import argparse
 
+cur_path = os.path.abspath(os.path.dirname(__file__))
+root_path = os.path.split(cur_path)[0]
+sys.path.append(root_path)
+
 # Cityscapes imports
 # For semantic segmentation task, we directly call cityscape functions
 from thirdParty.cityscapesScripts.cityscapesscripts.evaluation import evalPixelLevelSemanticLabeling
@@ -68,16 +72,20 @@ def main():
     args.evalPixelAccuracy = True
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("pred_dir", metavar='PRED_DIR',
+    parser.add_argument("--pred_dir", metavar='PRED_DIR',
+            default='/home/ubuntu/VDC/juyeb/awesome-semantic-segmentation-pytorch/runs/pred_pic/bisenet_best_resnet18_apollos/bloss/',
             type=lambda x: cm.isValidDirectory(parser, x),
             help="directory to the predction images")
-    parser.add_argument("pred_list", metavar='PRED_FILE',
+    parser.add_argument("--pred_list", metavar='PRED_FILE',
+            default='/home/ubuntu/VDC/juyeb/awesome-semantic-segmentation-pytorch/img_list.csv',
             type=lambda x: cm.isValidFile(parser, x),
             help="path to a list file specifying the relative image locations in pred_dir")
-    parser.add_argument("gt_dir", metavar='GT_DIR',
+    parser.add_argument("--gt_dir", metavar='GT_DIR',
+            default='/home/ubuntu/VDC/Dataset/ApolloScape/LaneSegmentation/',
             type=lambda x: cm.isValidDirectory(parser, x),
             help="directory to the groundtruth images")
-    parser.add_argument("gt_list", metavar='GT_FILE',
+    parser.add_argument("--gt_list", metavar='GT_FILE',
+            default='/home/ubuntu/VDC/juyeb/awesome-semantic-segmentation-pytorch/label_list.csv',
             type=lambda x: cm.isValidFile(parser, x),
             help="path to a list file specifying the relative image locations in gt_dir")
     argv = parser.parse_args()

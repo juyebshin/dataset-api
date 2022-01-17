@@ -157,6 +157,7 @@ def convert_pose_mat_to_6dof(pose_file_in, pose_file_out):
 
         xyz = mat[:3, 3]
         rpy = rotation_matrix_to_euler_angles(mat[:3, :3])
+        # print('x y z r p y: {}, {}'.format(xyz, rpy))
         output_motion = np.hstack((xyz, rpy)).flatten()
         out_str = '%s %s\n' % (image_name, np.array2string(output_motion,
                   separator=',',
